@@ -1,36 +1,20 @@
-import express from 'express';
-import cors from 'cors';
-import { config as loadEnv } from 'dotenv';
-import { login } from './endpoints/login';
-import { register } from './endpoints/register';
-import { token } from './endpoints/token';
-import { API_PORT } from './constants';
+import express from "express";
 
-interface EnvValues extends NodeJS.ProcessEnv {
-    REFRESH_TOKEN_SECRET: string;
-    ACCESS_TOKEN_SECRET: string;
-}
+import auth from "./endpoints/auth";
+import user from "./endpoints/user";
+import course from "./endpoints/course";
 
-loadEnv();
-export const { REFRESH_TOKEN_SECRET, ACCESS_TOKEN_SECRET } = process.env as EnvValues;
-
-if (!(REFRESH_TOKEN_SECRET && ACCESS_TOKEN_SECRET)) {
-    console.error('Token secrets are undefined');
-    process.exit(1);
-}
+const PORT = 3000;
 
 const app = express();
 
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.static('public'));
+app.use(express.json())
 
-// Api enpoints
-app.post('/api/login', login);
-app.put('/api/register', register);
-app.post('/api/token', token);
+app.use("/auth", auth);
+app.use("/user", user);
+app.use("/course", course);
 
-app.listen(API_PORT, () => {
-    console.log(`App listening on port ${API_PORT}`);
+app.listen(PORT, () => {
+    console.log(`Server started at port ${PORT}`);
 });
+

@@ -8,5 +8,9 @@
     ],
     "outDir": "build",
     "baseUrl": ".",
+    "paths": {
+        "@/*": ["./src/*"]
+    },
+    "typeRoots": ["./src/types"]
   }
 }
