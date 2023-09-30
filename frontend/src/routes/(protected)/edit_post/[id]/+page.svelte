@@ -21,7 +21,7 @@
 </script>
 
 <PostEditor
-	title="Edit course"
+	title="Edit post"
 	submitText="Edit"
 	bind:name
 	bind:description

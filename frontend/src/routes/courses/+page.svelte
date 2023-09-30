@@ -1,4 +1,9 @@
 <script lang="ts">
+	import {page } from '$app/stores';
+	import {GoDiffAdded} from '$lib/icons.js'
+	import {TiEdit} from '$lib/icons.js'
+	import { authStore } from '$lib/scripts/authentication';
+
 	const courses = [
 		{
 			id: 1,
@@ -19,7 +24,7 @@
 			description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam aspernatur provident eveniet eligendi cumque consequatur sint nisi sapiente. Iste beatae laboriosam iure molestias cum expedita architecto itaque quae rem.',
 		}
 	];
-	
+
 </script>
 
 <div class="p-20">
@@ -47,6 +52,11 @@
 					<small>
 						data stworzenia kursu
 					</small>
+					{#if typeof $authStore === "object"}
+							<small class="w-6 h-6">
+								<a href="/edit_course/{$page.params.id}"><TiEdit/></a>
+							</small>
+					{/if}
 				</div>
 			</footer>
 			
@@ -55,3 +65,9 @@
 	</div>
 	
 </div>
+
+{#if typeof $authStore === "object"}
+	<a href="/add_course" class="absolute right-3 bottom-3 w-16 h-16">
+		<GoDiffAdded />
+	</a>
+{/if}

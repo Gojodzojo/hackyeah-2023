@@ -1,5 +1,8 @@
 <script lang="ts">
 	import {page } from '$app/stores';
+	import { authStore } from '$lib/scripts/authentication';
+	import {GoDiffAdded} from '$lib/icons.js'
+	import {TiEdit} from '$lib/icons.js'
 	console.log($page.params);
 
 	const posts = [
@@ -14,7 +17,7 @@
 			description: "opis posta"
 		}
 	];
-
+	
 </script>
 
 <header class="w-full flex gap-1 p-1">
@@ -46,9 +49,20 @@
 						<small>
 							data stworzenia kursu
 						</small>
+						{#if typeof $authStore === "object"}
+							<small class="w-6 h-6">
+								<a href="/edit_post/{$page.params.id}"><TiEdit/></a>
+							</small>
+						{/if}
 					</div>
 				</footer>
 			</a>
 		{/each}
 	</div>
 </div>
+
+{#if typeof $authStore === "object"}
+	<a href="/add_post" class="absolute right-3 bottom-3 w-16 h-16">
+		<GoDiffAdded />
+	</a>
+{/if}

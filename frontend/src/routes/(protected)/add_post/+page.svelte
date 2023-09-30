@@ -17,8 +17,8 @@
 </script>
 
 <PostEditor
-	title="Edit course"
-	submitText="Edit"
+	title="Add post"
+	submitText="Add"
 	bind:name
 	bind:description
 	bind:files
