@@ -18,6 +18,78 @@ router.get("/", async (req: Request, res: Response) => {
     })
 });
 
+router.post("/", async (req: Request, res: Response) => {
+    if (req.user == undefined) {
+        res.status(403).end();
+        return;
+    }
+
+    await database.course.create({
+        data: {
+            authorId: req.user.id,
+            name: req.body.name,
+            description: req.body.description,
+        },
+    });
+
+    res.end();
+});
+
+router.put("/:id", async (req: Request, res: Response) => {
+    if (req.user == undefined) {
+        res.status(403).end();
+        return;
+    }
+
+    await database.course.update({
+        where: {
+            id: Number(req.params.id),
+        },
+        data: {
+            name: req.body.name,
+            description: req.body.description,
+        },
+    });
+
+    res.end();
+});
+
+router.post("/:id/lesson", async (req: Request, res: Response) => {
+    if (req.user == undefined) {
+        res.status(403).end();
+    }
+
+    await database.lesson.create({
+        data: {
+            courseId: Number(req.params.id),
+            name: req.body.name,
+            description: req.body.description,
+            content: req.body.content,
+        }
+    });
+
+    res.end();
+});
+
+router.put("/:courseId/lesson/:lessonId", async (req: Request, res: Response) => {
+    if (req.user == undefined) {
+        res.status(403).end();
+    }
+
+    await database.lesson.update({
+        where: {
+            id: Number(req.params.lessonId),
+        },
+        data: {
+            name: req.body.name,
+            description: req.body.description,
+            content: req.body.content,
+        }
+    })
+
+    res.end();
+});
+
 router.post("/:id/message", async (req: Request, res: Response) => {
     if (req.user == undefined) {
         res.status(403).end();
@@ -35,6 +107,24 @@ router.post("/:id/message", async (req: Request, res: Response) => {
     res.end();
 });
 
+router.get("/:id", async (req: Request, res: Response) => {
+    const course = await database.course.findUnique({
+        where: {
+            id: Number(req.params.id),
+        },
+        include: {
+            lessons: true,
+        },
+    });
+
+    res.send({
+        status: 200,
+        data: {
+            course: course,
+        }
+    })
+});
+
 router.get("/:id/message", async (req: Request, res: Response) => {
     const messages = await database.message.findMany({
         where: {
@@ -45,7 +135,7 @@ router.get("/:id/message", async (req: Request, res: Response) => {
     res.send({
         status: 200,
         data: {
-            messages: messages
+            messages: messages.map((message) => ({ ...message, self: Number(req.user?.id) === message.authorId }))
         }
     });
 });
