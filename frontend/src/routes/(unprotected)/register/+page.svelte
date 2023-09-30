@@ -25,7 +25,7 @@
 			showErrorToast(error, toastStore);
 		} else {
 			registerPromise = register(username, password1)
-				.then(() => setTimeout(() => goto('/dashboard'), 1))
+				.then(() => setTimeout(() => goto('/courses'), 1))
 				.catch(showApiErrorToast(toastStore));
 		}
 	}
