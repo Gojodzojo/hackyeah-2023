@@ -62,7 +62,7 @@
 					placeholder="Password"
 					{...{ type: passwordInputType }}
 				/>
-				<button on:click={togglePasswordVisibility} class="variant-filled-surface">
+				<button type="button" on:click={togglePasswordVisibility} class="variant-filled-surface">
 					<IconComponent icon={hidePassword ? GoEye : GoEyeClosed} />
 				</button>
 			</div>
