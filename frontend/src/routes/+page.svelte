@@ -1,13 +1,16 @@
-<div class="container h-full mx-auto flex justify-center items-center">
+<script lang="ts">
+	import { IoMdRocket } from '$lib/icons';
+</script>
+
+<div class="container h-full w-full flex flex-col snap-y">
+	<div class="card h-96 flex-col flex justify-center items-center bg-gradient-to-br variant-gradient-primary-tertiary">
+		<strong class="font-bold text-9xl">STARSHIP*</strong>
+		<a class="btn btn-sm variant-ghost-surface w-22 m-4" href="/login"> START </a>
+	</div>
+
 	<div class="space-y-10 text-center flex flex-col items-center">
-		<h2 class="h2">Welcome to Skeleton.</h2>
-		<div class="flex justify-center space-x-2">
-			<a class="btn variant-filled" href="/login"> Login </a>
-		</div>
-		<div class="space-y-2">
-			<p>Try editing the following:</p>
-			<p><code class="code">/src/routes/+layout.svelte</code></p>
-			<p><code class="code">/src/routes/+page.svelte</code></p>
+		<div class="space-y-4">
+			<p>info o aplikacji itp</p>
 		</div>
 	</div>
 </div>
