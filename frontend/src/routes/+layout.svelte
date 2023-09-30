@@ -20,19 +20,20 @@
 	<AppBar slot="header">
 		<svelte:fragment slot="lead">
 			<a href="/">
-				<strong class="text-xl uppercase">Starship*</strong>
+				<strong class="text-xl uppercase">Starship</strong>
 			</a>
 		</svelte:fragment>
 		<svelte:fragment slot="trail">
-			<a class="btn btn-sm variant-ghost-surface" href="/">
-				FORUM
+			<a
+				class="btn btn-sm variant-ghost-surface"
+				href="https://github.com/Gojodzojo/hackyeah-2023"
+				target="_blank"
+				rel="no-refer"
+			>
+				GITHUB
 			</a>
-			<a class="btn btn-sm variant-ghost-surface" href="/courses">
-				KURSY
-			</a>
-			<a class="btn btn-sm variant-ghost-surface" href="/login">
-				LOGIN
-			</a>
+			<a class="btn btn-sm variant-ghost-surface" href="/courses"> KURSY </a>
+			<a class="btn btn-sm variant-ghost-surface" href="/login"> LOGIN </a>
 			{#if typeof $authStore === 'object'}
 				<UserAvatar username="Mateusz Goik" />
 			{/if}
