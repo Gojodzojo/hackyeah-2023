@@ -9,7 +9,8 @@
         "build-backend": "npm run build --workspace backend",
         "replace-frontend-build": "rimraf backend/build/src/public && mv frontend/build backend/build/src/public",
         "build": "npm run build-frontend && npm run build-backend && npm run replace-frontend-build",
-        "run-build": "cd backend/build/src && node index.js"
+        "run-build": "cd backend/build/src && node index.js",
+        "prisma-generate": "prisma generate --schema=./backend/prisma/schema.prisma"
     },
     "dependencies": {
         "bcrypt": "^5.1.1",
