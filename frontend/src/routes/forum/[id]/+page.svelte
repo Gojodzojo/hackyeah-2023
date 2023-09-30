@@ -82,7 +82,7 @@
 									placeholder="Write a message..."
 									rows="1"
 							/>
-							<button class="input-group-shim">
+							<button class="input-group-shim variant-filled-tertiary">
 								send
 							</button>
 						</div>
@@ -90,7 +90,7 @@
 				{:else}
 					<section class="border-t border-surface-500/30 p-4">
 						<a href="/login">
-							<button class="input-group-shim w-full h-[3rem]">
+							<button class="input-group-shim w-full h-[3rem] variant-filled-tertiary">
 								log in to send message
 							</button>
 						</a>
