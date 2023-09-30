@@ -24,13 +24,13 @@
 			</a>
 		</svelte:fragment>
 		<svelte:fragment slot="trail">
-			<a class="btn btn-sm variant-ghost-surface" href="/" target="_blank" rel="noreferrer">
+			<a class="btn btn-sm variant-ghost-surface" href="/">
 				FORUM
 			</a>
-			<a class="btn btn-sm variant-ghost-surface" href="/" target="_blank" rel="noreferrer">
+			<a class="btn btn-sm variant-ghost-surface" href="/courses">
 				KURSY
 			</a>
-			<a class="btn btn-sm variant-ghost-surface" href="/login" target="_blank" rel="noreferrer">
+			<a class="btn btn-sm variant-ghost-surface" href="/login">
 				LOGIN
 			</a>
 			{#if typeof $authStore === 'object'}
