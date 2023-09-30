@@ -32,7 +32,7 @@ router.post("/", async (req: Request, res: Response) => {
         },
     });
 
-    res.end();
+    res.send({ status: 200 });
 });
 
 router.put("/:id", async (req: Request, res: Response) => {
@@ -51,7 +51,7 @@ router.put("/:id", async (req: Request, res: Response) => {
         },
     });
 
-    res.end();
+    res.send({ status: 200 });
 });
 
 router.post("/:id/lesson", async (req: Request, res: Response) => {
@@ -68,7 +68,7 @@ router.post("/:id/lesson", async (req: Request, res: Response) => {
         }
     });
 
-    res.end();
+    res.send({ status: 200 });
 });
 
 router.put("/:courseId/lesson/:lessonId", async (req: Request, res: Response) => {
@@ -87,7 +87,7 @@ router.put("/:courseId/lesson/:lessonId", async (req: Request, res: Response) =>
         }
     })
 
-    res.end();
+    res.send({ status: 200 });
 });
 
 router.post("/:id/message", async (req: Request, res: Response) => {
@@ -104,7 +104,7 @@ router.post("/:id/message", async (req: Request, res: Response) => {
         }
     });
 
-    res.end();
+    res.send({ status: 200 });
 });
 
 router.get("/:id", async (req: Request, res: Response) => {

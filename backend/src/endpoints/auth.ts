@@ -9,7 +9,9 @@ router.post("/register", async (req, res) => {
 
     await database.user.create({ data: { email, password } });
 
-    res.end();
+    res.send({
+        status: 200,
+    });
 });
 
 router.post("/login", async (req, res) => {

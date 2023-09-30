@@ -36,11 +36,11 @@ export async function tryLoginFromCookie() {
     authStore.set({ ...refResp, refreshToken });
 }
 
-export async function login(username: string, password: string) {
-    const resp = await apiFetch<LoginResponse, LoginRequest>('/api/login', 'POST', { username, password });
+export async function login(email: string, password: string) {
+    const resp = await apiFetch<LoginResponse, LoginRequest>('/auth/login', 'POST', { email, password });
 
-    if ("status" in resp) {
-        throw resp;
+    if (resp.status != 200) {
+        throw resp
     }
 
     authStore.set(resp);
@@ -48,10 +48,10 @@ export async function login(username: string, password: string) {
     saveRefreshToken(resp.refreshToken);
 }
 
-export async function register(username: string, password: string) {
-    const resp = await apiFetch<RegisterResponse, RegisterRequest>('/api/register', 'PUT', { username, password });
+export async function register(email: string, password: string) {
+    const resp = await apiFetch<RegisterResponse, RegisterRequest>('/auth/register', 'POST', { email, password });
 
-    if ("status" in resp) {
+    if (resp.status != 200) {
         throw resp;
     }
 

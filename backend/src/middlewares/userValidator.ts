@@ -4,7 +4,7 @@ import token from "../utils/token";
 
 export const userValidator = async (req: Request, res: Response, next: NextFunction) => {
 
-    let authorizationHeader = req.headers.authorization;
+    let authorizationHeader = req.headers.authorization ?? req.body.accessToken;
 
     if (authorizationHeader == undefined || !authorizationHeader?.startsWith("Bearer")) {
         return next();
