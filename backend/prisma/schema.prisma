@@ -9,6 +9,8 @@ datasource db {
 
 model User {
     id          Int     @id @default(autoincrement())
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
     email       String  @unique
     password    String
     courses     Course[]
@@ -17,6 +19,8 @@ model User {
 
 model Course {
     id          Int     @id @default(autoincrement())
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
     author      User    @relation(fields: [authorId], references: [id])
     authorId    Int
     name        String
@@ -27,6 +31,8 @@ model Course {
 
 model Lesson {
     id          Int     @id @default(autoincrement())
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
     course      Course  @relation(fields: [courseId], references: [id])
     courseId    Int
     name        String
@@ -36,10 +42,20 @@ model Lesson {
 
 model Message {
     id          Int @id @default(autoincrement())
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
     course      Course @relation(fields: [courseId], references: [id])
-    courseId    Int
     author      User @relation(fields: [authorId], references: [id])
     authorId    Int
+    courseId    Int
     content     String
+}
+
+model Asset {
+    id          Int @id @default(autoincrement())
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    mimetype    String
+    data        Bytes
 }
 
