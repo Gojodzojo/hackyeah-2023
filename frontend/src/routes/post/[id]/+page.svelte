@@ -18,9 +18,14 @@
 {#await postPromise}
 	Loading
 {:then { data }}
-	<div class="p-20">
-		<p>nazwa: {data.lesson.name}</p>
-		<p>opis: {data.lesson.description}</p>
-		<p>content: {@html data.lesson.content}</p>
+	<div class="w-full h-full flex items-center flex-col">
+		<h1 class="h1 mb-5 mt-16">{data.lesson.name}</h1>
+		<span class="text-surface-400 mb-5">
+			{data.lesson.description}
+		</span>
+
+		<div class="card p-4 space-y-4 w-5/6">
+			{@html data.lesson.content}
+		</div>
 	</div>
 {/await}
