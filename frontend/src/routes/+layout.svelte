@@ -35,7 +35,7 @@
 			<a class="btn btn-sm variant-ghost-surface" href="/courses"> KURSY </a>
 			<a class="btn btn-sm variant-ghost-surface" href="/login"> LOGIN </a>
 			{#if typeof $authStore === 'object'}
-				<UserAvatar username="Mateusz Goik" />
+				<UserAvatar username={$authStore.email} />
 			{/if}
 		</svelte:fragment>
 	</AppBar>
