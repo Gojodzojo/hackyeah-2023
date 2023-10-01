@@ -25,6 +25,7 @@ model Course {
     authorId    Int
     name        String
     description String
+    image       String
     lessons     Lesson[]
     messages    Message[]
 }
@@ -36,6 +37,7 @@ model Lesson {
     course      Course  @relation(fields: [courseId], references: [id])
     courseId    Int
     name        String
+    image       String
     description String
     content     String
 }

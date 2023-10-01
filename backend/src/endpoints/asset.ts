@@ -10,9 +10,8 @@ const upload = multer({ storage });
 router.post("/", upload.single("image"), async (req, res) => {
     if (req.file == undefined) {
         res.status(400).end();
+        return;
     }
-
-    console.log(req.file);
 
     const asset = await database.asset.create({
         data: {
@@ -20,6 +19,7 @@ router.post("/", upload.single("image"), async (req, res) => {
             data: req.file!.buffer,
         },
     });
+
 
     res.send({
         status: 200,
