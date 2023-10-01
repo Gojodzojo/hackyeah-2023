@@ -1,14 +1,9 @@
 import { writable, type Writable } from "svelte/store";
 import { apiFetch } from "./apiFetch";
-import type { UserData } from "backend/src/db";
-import type { TokenLoginRequest, TokenLoginResponse } from "backend/src/endpoints/token";
-import type { LoginRequest, LoginResponse } from "backend/src/endpoints/login";
-import type { RegisterRequest, RegisterResponse } from "backend/src/endpoints/register";
 
 export interface AuthState {
-    userData: UserData;
-    accessToken: string;
-    refreshToken: string;
+    userData: any;
+    token: string;
 }
 
 export const authStore: Writable<AuthState | "LOGGED_OUT" | "LOADING"> = writable("LOADING");
@@ -19,45 +14,42 @@ export function logout() {
 }
 
 export async function tryLoginFromCookie() {
-    const refreshToken = getRefreshToken();
+    const token = getToken();
 
-    if (refreshToken === '') {
+    if (token === '') {
         logout();
         return;
     }
 
-    const refResp = await apiFetch<TokenLoginResponse, TokenLoginRequest>('/api/token', 'POST', { refreshToken });
-
+    const refResp = await apiFetch<any>('/user/details', 'GET', undefined, { authorization: `Bearer ${token}` });
     if ('status' in refResp) {
         logout();
         return;
     }
 
-    authStore.set({ ...refResp, refreshToken });
+    authStore.set({ ...refResp, token });
 }
 
-export async function login(username: string, password: string) {
-    const resp = await apiFetch<LoginResponse, LoginRequest>('/api/login', 'POST', { username, password });
+export async function login(email: string, password: string) {
+    const resp = await apiFetch<any>('/auth/login', 'POST', { email, password });
 
     if ("status" in resp) {
         throw resp;
     }
-
     authStore.set(resp);
     // removeRefreshToken();
-    saveRefreshToken(resp.refreshToken);
+    saveRefreshToken(resp.token);
 }
 
-export async function register(username: string, password: string) {
-    const resp = await apiFetch<RegisterResponse, RegisterRequest>('/api/register', 'PUT', { username, password });
+export async function register(email: string, password: string) {
+    const resp = await apiFetch<any>('/auth/register', 'POST', { email, password });
 
     if ("status" in resp) {
         throw resp;
     }
-
     authStore.set(resp);
     // removeRefreshToken();
-    saveRefreshToken(resp.refreshToken);
+    saveRefreshToken(resp.token);
 }
 
 function saveRefreshToken(token: string) {
@@ -68,7 +60,7 @@ function removeRefreshToken() {
     document.cookie = "refreshToken=0; max-age=0; path=/;";
 }
 
-function getRefreshToken() {
+function getToken() {
     const name = "refreshToken=";
     const decodedCookie = decodeURIComponent(document.cookie);
     const ca = decodedCookie.split(';');

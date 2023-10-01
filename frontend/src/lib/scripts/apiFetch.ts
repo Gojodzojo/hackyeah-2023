@@ -7,14 +7,15 @@ const API_BASE = import.meta.env.DEV ? `http://localhost:${API_PORT}` : '';
 export const NO_CONNECTION_TO_SERVER = 'No connection to server';
 export const UNAUTHORISED_USER = 'Unauthorised user';
 
-export async function apiFetch<Resp extends object, Req extends object = object>(url: string, method: string, body?: Req): Promise<Resp | { status: string }> {
+export async function apiFetch<Resp extends object, Req extends object = object>(url: string, method: string, body?: Req, headers?: object): Promise<Resp | { status: string }> {
+	const h = headers ? headers : {};
 	try {
 		const resp = await fetch(API_BASE + url, {
 			method,
 			body: body ? JSON.stringify(body) : undefined,
 			referrerPolicy: 'same-origin',
 			mode: 'cors',
-			headers: { 'Content-Type': 'application/json' }
+			headers: { 'Content-Type': 'application/json', ...h }
 		});
 		return await resp.json();
 	} catch (e) {
@@ -29,8 +30,6 @@ export async function protectedApiFetch
 	const auth = get(authStore);
 
 	if (typeof auth === 'string') return { status: UNAUTHORISED_USER };
-	const { accessToken } = auth;
 
-	const b = body ? body : {};
-	return await apiFetch(url, method, { accessToken, ...b });
+	return await apiFetch(url, method, body, { authorization: `Bearer ${auth.token}` });
 }

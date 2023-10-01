@@ -9,13 +9,12 @@ router.use(userValidator);
 
 router.get("/details", (req: Request, res: Response) => {
     if (req.user == undefined) {
-        res.status(403).end();
+        res.status(403).json({}).end();
         return;
     }
 
-    res.send({
-        status: 200,
-        data: { ...req.user, password: undefined, courses: undefined },
+    res.status(200).json({
+        ...req.user, password: undefined, courses: undefined,
     });
 });
 

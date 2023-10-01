@@ -9,7 +9,18 @@ router.post("/register", async (req, res) => {
 
     await database.user.create({ data: { email, password } });
 
-    res.end();
+    const user = await database.user.findUnique({
+        where: {
+            email: email
+        }
+    });
+
+    const userToken = token.generate(user!);
+
+    res.status(200).json({
+        user,
+        token: userToken,
+    });
 });
 
 router.post("/login", async (req, res) => {
@@ -22,22 +33,20 @@ router.post("/login", async (req, res) => {
     });
 
     if (user === null) {
-        res.status(404).end();
+        res.status(402).end();
         return;
     }
 
     if (user.password !== password) {
-        res.status(404).end();
+        res.status(401).end();
         return;
     }
 
     const userToken = token.generate(user);
 
-    res.send({
-        status: 200,
-        data: {
-            token: userToken,
-        },
+    res.status(200).json({
+        user,
+        token: userToken,
     });
 });
 
