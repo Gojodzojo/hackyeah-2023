@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { protectedApiFetch } from '$lib/scripts/apiFetch';
-	console.log($page.params);
 
-	// const postPromise = protectedApiFetch('/')
+	const postPromise = protectedApiFetch(`/course/0/lesson/${$page.params.id}`, 'GET');
 
 	const post = [
 		{
@@ -16,9 +15,12 @@
 	];
 </script>
 
-<div class="p-20">
-	<p>wybrany post: {$page.params.id}</p>
-	<p>nazwa: {post[0].name}</p>
-	<p>opis: {post[0].description}</p>
-	<p>content: {post[0].content}</p>
-</div>
+{#await postPromise}
+	Loading
+{:then { data }}
+	<div class="p-20">
+		<p>nazwa: {data.lesson.name}</p>
+		<p>opis: {data.lesson.description}</p>
+		<p>content: {@html data.lesson.content}</p>
+	</div>
+{/await}
