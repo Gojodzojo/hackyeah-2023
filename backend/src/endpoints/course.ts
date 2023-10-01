@@ -10,11 +10,8 @@ router.use(userValidator);
 router.get("/", async (req: Request, res: Response) => {
     const courses = await database.course.findMany();
 
-    res.send({
-        status: 200,
-        data: {
-            courses: courses,
-        }
+    res.status(200).json({
+        courses: courses,
     })
 });
 

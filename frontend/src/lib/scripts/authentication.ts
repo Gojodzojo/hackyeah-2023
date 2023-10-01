@@ -33,9 +33,6 @@ export async function tryLoginFromCookie() {
 export async function login(email: string, password: string) {
     const resp = await apiFetch<any>('/auth/login', 'POST', { email, password });
 
-    if (resp.status != 200) {
-        throw resp
-    }
     authStore.set(resp);
     // removeRefreshToken();
     saveRefreshToken(resp.token);

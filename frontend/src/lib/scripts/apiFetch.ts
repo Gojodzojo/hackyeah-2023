@@ -19,6 +19,7 @@ export async function apiFetch<Resp extends object, Req extends object = object>
 		});
 		return await resp.json();
 	} catch (e) {
+		console.log(e)
 		return { status: NO_CONNECTION_TO_SERVER };
 	}
 }
