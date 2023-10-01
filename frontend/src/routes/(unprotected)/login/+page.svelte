@@ -27,7 +27,7 @@
 			showErrorToast(error, toastStore);
 		} else {
 			loginPromise = login(username, password)
-				.then(() => setTimeout(() => goto('/dashboard'), 1))
+				.then(() => setTimeout(() => goto('/courses'), 1))
 				.catch(showApiErrorToast(toastStore));
 		}
 	}
@@ -62,7 +62,7 @@
 					placeholder="Password"
 					{...{ type: passwordInputType }}
 				/>
-				<button on:click={togglePasswordVisibility} class="variant-filled-surface">
+				<button type="button" on:click={togglePasswordVisibility} class="variant-filled-surface">
 					<IconComponent icon={hidePassword ? GoEye : GoEyeClosed} />
 				</button>
 			</div>
