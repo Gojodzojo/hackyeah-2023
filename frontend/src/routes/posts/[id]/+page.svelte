@@ -6,21 +6,6 @@
 	import { apiFetch } from '$lib/scripts/apiFetch';
 
 	const postsPromise = apiFetch(`/course/${$page.params.id}`, 'GET');
-
-	console.log($page.params);
-
-	const posts = [
-		{
-			id: 1,
-			name: 'post 1',
-			description: 'opis posta'
-		},
-		{
-			id: 2,
-			name: 'post 2',
-			description: 'opis posta'
-		}
-	];
 </script>
 
 <header class="w-full flex gap-1 p-1">

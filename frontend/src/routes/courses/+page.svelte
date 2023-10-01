@@ -6,30 +6,6 @@
 	import { authStore } from '$lib/scripts/authentication';
 
 	const coursesPromise = apiFetch('/course', 'GET');
-
-	// const courses = [
-	// 	{
-	// 		id: 1,
-	// 		authorId: 1,
-	// 		name: 'Kurs 1',
-	// 		description:
-	// 			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam aspernatur provident eveniet eligendi cumque consequatur sint nisi sapiente. Iste beatae laboriosam iure molestias cum expedita architecto itaque quae rem.'
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		authorId: 2,
-	// 		name: 'Kurs 2',
-	// 		description:
-	// 			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam aspernatur provident eveniet eligendi cumque consequatur sint nisi sapiente. Iste beatae laboriosam iure molestias cum expedita architecto itaque quae rem.'
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		authorId: 3,
-	// 		name: 'Kurs 3',
-	// 		description:
-	// 			'Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam aspernatur provident eveniet eligendi cumque consequatur sint nisi sapiente. Iste beatae laboriosam iure molestias cum expedita architecto itaque quae rem.'
-	// 	}
-	// ];
 </script>
 
 <div class="p-20">
@@ -74,7 +50,7 @@
 							<small> data stworzenia kursu </small>
 							{#if typeof $authStore === 'object'}
 								<small class="w-6 h-6">
-									<a href="/edit_course/{$page.params.id}"><TiEdit /></a>
+									<a href="/edit_course/{course.id}"><TiEdit /></a>
 								</small>
 							{/if}
 						</div>
