@@ -26,6 +26,7 @@ router.post("/", async (req: Request, res: Response) => {
             authorId: req.user.id,
             name: req.body.name,
             description: req.body.description,
+            image: req.body.image,
         },
     });
 
@@ -45,6 +46,7 @@ router.put("/:id", async (req: Request, res: Response) => {
         data: {
             name: req.body.name,
             description: req.body.description,
+            image: req.body.image,
         },
     });
 
@@ -62,6 +64,7 @@ router.post("/:id/lesson", async (req: Request, res: Response) => {
             name: req.body.name,
             description: req.body.description,
             content: req.body.content,
+            image: req.body.image,
         }
     });
 
@@ -81,6 +84,7 @@ router.put("/:courseId/lesson/:lessonId", async (req: Request, res: Response) =>
             name: req.body.name,
             description: req.body.description,
             content: req.body.content,
+            image: req.body.image,
         }
     })
 
