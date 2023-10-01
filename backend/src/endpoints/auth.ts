@@ -7,7 +7,12 @@ const router = express.Router();
 router.post("/register", async (req, res) => {
     const { email, password } = req.body;
 
-    await database.user.create({ data: { email, password } });
+    try {
+        await database.user.create({ data: { email, password } });
+    } catch(e) {
+        res.status(400).send({ status: 400 });
+        return;
+    }
 
     const user = await database.user.findUnique({
         where: {
@@ -33,12 +38,12 @@ router.post("/login", async (req, res) => {
     });
 
     if (user === null) {
-        res.status(402).end();
+        res.status(402).send({ status: 402 });
         return;
     }
 
     if (user.password !== password) {
-        res.status(401).end();
+        res.status(401).send({ status: 402 });
         return;
     }
 
