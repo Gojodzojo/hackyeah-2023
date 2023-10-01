@@ -137,5 +137,25 @@ router.get("/:id/message", async (req: Request, res: Response) => {
     });
 });
 
+router.get("/:courseId/lesson/:lessonId", async (req: Request, res: Response) => {
+    const lesson = await database.lesson.findUnique({
+        where: {
+            id: Number(req.params.lessonId),
+        },
+    });
+
+    if (lesson == null) {
+        res.status(404).end();
+        return;
+    }
+
+    res.send({
+        status: 200,
+        data: {
+            lesson: lesson,
+        },
+    });
+});
+
 export default router;
 
